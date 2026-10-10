@@ -1,0 +1,12 @@
+.terraform
+.env
+.key
+.state
+.txt
+
+*.tfvars
+*.tfvars.json
+*.txt
+
+.DS_Store
+.hcl

@@ -1,7 +1,6 @@
 .terraform
 .env
 .key
-.state
 .txt
 
 *.tfvars
@@ -9,4 +8,10 @@
 *.txt
 
 .DS_Store
-.hcl
+*.hcl
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars.json
+*.tfplan

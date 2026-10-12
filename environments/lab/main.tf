@@ -6,3 +6,13 @@ module "network" {
   private_subnet_cidr = var.private_subnet_cidr
   availability_zone   = var.availability_zone
 }
+
+module "security" {
+  source = "../../modules/security"
+
+  vpc_id = module.network.vpc_id
+}
+
+module "iam" {
+  source = "../../modules/iam"
+}

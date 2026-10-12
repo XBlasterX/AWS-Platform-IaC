@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "terraform_state" {
   lifecycle {
     prevent_destroy = true
   }
-  bucket = "${random_id.bucket_suffix.hex}-${var.project_name}.lower()"
+  bucket = lower(replace("${random_id.bucket_suffix.hex}-${var.project_name}", "_", "-"))
   tags = {
     "Name" = "${var.project_name}-terraform-state-${var.environment}"
   }

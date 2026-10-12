@@ -16,3 +16,18 @@ module "security" {
 module "iam" {
   source = "../../modules/iam"
 }
+
+module "compute" {
+  source                    = "../../modules/compute"
+  instance_type             = "t3.micro"
+  ec2_instance_profile_name = module.iam.ec2_instance_profile_name
+  ec2_security_group_ids    = module.security.ec2_security_group_ids
+
+}
+
+module "load_balancer" {
+  source                = "../../modules/load_balancer"
+  vpc_id                = module.network.vpc_id
+  subnet_ids            = module.network.public_subnet_ids
+  alb_security_group_id = module.security.alb_security_group_id
+}

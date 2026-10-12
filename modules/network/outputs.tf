@@ -6,3 +6,13 @@ output "private_subnet_ids" {
   value       = aws_subnet.private.*.id
   description = "IDs of the private subnets"
 }
+
+output "public_subnet_ids" {
+  value       = aws_subnet.public.*.id
+  description = "IDs of the public subnets"
+}
+
+output "internet_gateway_id" {
+  value       = aws_internet_gateway.main.id
+  description = "ID of the internet gateway"
+}

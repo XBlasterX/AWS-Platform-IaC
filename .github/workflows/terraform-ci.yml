@@ -1,0 +1,42 @@
+name: Terraform CI
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-quality:
+    name: Terraform Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: "1.16.5"
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        run: terraform init -backend=false -input=false
+        working-directory: enviroments/lab
+
+      - name: Terraform Validate
+        run: terraform validate -input=false
+        working-directory: enviroments/lab
+
+      - name: Checkov Security Scan
+        run: checkov -d .
+        working-directory: enviroments/lab

@@ -34,3 +34,10 @@ module "load_balancer" {
   alb_security_group_id = module.security.alb_security_group_id
   target_group_arns     = module.load_balancer.target_group_arns
 }
+
+module "monitoring" {
+  source                  = "../../modules/monitoring"
+  alb_arn_suffix          = module.load_balancer.alb_arn_suffix
+  target_group_arn_suffix = module.load_balancer.target_group_arn_suffix
+  aws_region              = var.aws_region
+}

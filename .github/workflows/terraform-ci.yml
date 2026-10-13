@@ -32,12 +32,12 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -backend=false -input=false
-        working-directory: enviroments/lab
+        working-directory: environments/lab
 
       - name: Terraform Validate
         run: terraform validate -input=false
-        working-directory: enviroments/lab
+        working-directory: environments/lab
 
       - name: Checkov Security Scan
         run: checkov -d .
-        working-directory: enviroments/lab
+        working-directory: environments/lab

@@ -97,3 +97,66 @@ resource "aws_iam_policy" "ssm_operator" {
   description = "Policy for SSM Operator"
   policy      = data.aws_iam_policy_document.ssm_operator.json
 }
+
+data "aws_iam_policy_document" "vpc_flow_logs_trust" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole"
+    ]
+
+    principals {
+      type        = "Service"
+      identifiers = ["vpc-flow-logs.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "vpc_flow_logs" {
+  assume_role_policy = data.aws_iam_policy_document.vpc_flow_logs_trust.json
+  name               = "vpc_flow_logs_role"
+  tags = {
+    "Name" = "vpc_flow_logs_role"
+  }
+}
+
+resource "aws_iam_role_policy" "vpc_flow_logs" {
+  name   = "vpc_flow_logs"
+  role   = aws_iam_role.vpc_flow_logs.id
+  policy = data.aws_iam_policy_document.vpc_flow_logs_operator.json
+}
+
+data "aws_iam_policy_document" "vpc_flow_logs_operator" {
+  statement {
+    sid    = "DescribeLogGroups"
+    effect = "Allow"
+    actions = [
+      "logs:DescribeLogGroups"
+    ]
+    resources = ["*"]
+  }
+  statement {
+    sid    = "DescribeLogStreams"
+    effect = "Allow"
+    actions = [
+      "logs:DescribeLogStreams"
+    ]
+    resources = ["${var.flow_log_logs_group_arn}:*"]
+  }
+  statement {
+    sid    = "PutLogEvents"
+    effect = "Allow"
+    actions = [
+      "logs:PutLogEvents"
+    ]
+    resources = ["${var.flow_log_logs_group_arn}:*"]
+  }
+  statement {
+    sid    = "CreateLogStream"
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogStream"
+    ]
+    resources = ["${var.flow_log_logs_group_arn}:*"]
+  }
+}

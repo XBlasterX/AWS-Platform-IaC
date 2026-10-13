@@ -15,6 +15,7 @@ resource "aws_lb_target_group" "app" {
 }
 
 resource "aws_lb" "public" {
+  drop_invalid_header_fields = true
   name                       = "production-platform-alb"
   load_balancer_type         = "application"
   subnets                    = var.public_subnet_ids
@@ -22,6 +23,7 @@ resource "aws_lb" "public" {
   ip_address_type            = "ipv4"
   internal                   = false
   security_groups            = [var.alb_security_group_id]
+  
 }
 
 resource "aws_lb_listener" "http" {

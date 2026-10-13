@@ -116,4 +116,8 @@ resource "aws_cloudwatch_dashboard" "platform" {
   })
 }
 
-
+resource "aws_cloudwatch_log_group" "flow_logs" {
+  name              = "flow_logs"
+  log_group_class   = "STANDARD"
+  retention_in_days = 7
+}

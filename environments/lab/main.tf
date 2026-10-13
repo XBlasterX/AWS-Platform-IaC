@@ -14,7 +14,8 @@ module "security" {
 }
 
 module "iam" {
-  source = "../../modules/iam"
+  source                  = "../../modules/iam"
+  flow_log_logs_group_arn = module.monitoring.flow_log_group_arn
 }
 
 module "compute" {

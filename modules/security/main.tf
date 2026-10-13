@@ -18,6 +18,7 @@ resource "aws_vpc_security_group_egress_rule" "alb_to_ec2" {
   ip_protocol                  = "tcp"
   security_group_id            = aws_security_group.alb.id
   referenced_security_group_id = aws_security_group.ec2.id
+
 }
 
 resource "aws_security_group" "ec2" {
@@ -54,4 +55,11 @@ resource "aws_vpc_security_group_ingress_rule" "endpoints_https" {
   to_port                      = 443
   ip_protocol                  = "tcp"
   referenced_security_group_id = aws_security_group.ec2.id
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = var.vpc_id
+  tags = {
+    Name = "default-restricted"
+  }
 }

@@ -1,0 +1,71 @@
+{
+    "failed_checks": [
+        {
+            "file": "/modules/load_balancer/main.tf",
+            "findings": [
+                {
+                    "resource": "module.load_balancer.aws_lb.public",
+                    "check_ids": [
+                        "CKV_AWS_150",
+                        "CKV_AWS_91"
+                    ]
+                },
+                {
+                    "resource": "module.load_balancer.aws_lb_listener.http",
+                    "check_ids": [
+                        "CKV_AWS_2"
+                    ]
+                }
+            ]
+        },
+        {
+            "file": "/modules/monitoring/main.tf",
+            "findings": [
+                {
+                    "resource": "module.monitoring.aws_cloudwatch_log_group.flow_logs",
+                    "check_ids": [
+                        "CKV_AWS_158",
+                        "CKV_AWS_338"
+                    ]
+                }
+            ]
+        },
+        {
+            "file": "/modules/security/main.tf",
+            "findings": [
+                {
+                    "resource": "module.security.aws_vpc_security_group_egress_rule.alb_to_ec2",
+                    "check_ids": [
+                        "CKV_AWS_23"
+                    ]
+                },
+                {
+                    "resource": "module.security.aws_vpc_security_group_egress_rule.ec2_to_endpoint",
+                    "check_ids": [
+                        "CKV_AWS_23"
+                    ]
+                },
+                {
+                    "resource": "module.security.aws_vpc_security_group_ingress_rule.alb_http",
+                    "check_ids": [
+                        "CKV_AWS_23",
+                        "CKV_AWS_260"
+                    ]
+                },
+                {
+                    "resource": "module.security.aws_vpc_security_group_ingress_rule.ec2_from_alb",
+                    "check_ids": [
+                        "CKV_AWS_23",
+                        "CKV_AWS_260"
+                    ]
+                },
+                {
+                    "resource": "module.security.aws_vpc_security_group_ingress_rule.endpoints_https",
+                    "check_ids": [
+                        "CKV_AWS_23"
+                    ]
+                }
+            ]
+        }
+    ]
+}

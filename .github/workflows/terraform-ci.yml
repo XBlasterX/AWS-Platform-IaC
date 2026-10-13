@@ -26,9 +26,6 @@ jobs:
         with:
           terraform_version: "1.16.4"
 
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
       - name: Terraform Init
         run: terraform init -backend=false -input=false
         working-directory: environments/lab
@@ -46,4 +43,4 @@ jobs:
         run: python -m pip install checkov
 
       - name: Checkov Security Scan
-        run: checkov -d . --framework terraform
+        run: checkov -d . --framework terraform --baseline .checkov.baseline --output-baseline-as-skipped

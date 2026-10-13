@@ -35,7 +35,7 @@ jobs:
         working-directory: environments/lab
 
       - name: Terraform Validate
-        run: terraform validate -input=false
+        run: terraform validate
         working-directory: environments/lab
 
       - name: Checkov Security Scan

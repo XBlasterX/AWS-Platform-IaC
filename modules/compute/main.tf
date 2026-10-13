@@ -41,6 +41,16 @@ resource "aws_autoscaling_group" "app" {
     value               = "production-platform-app"
     propagate_at_launch = true
   }
+  tag {
+    key                 = "Environment"
+    value               = "production"
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "Project"
+    value               = "AWS_Platform_IaC"
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_policy" "cpu_target_tracking" {

@@ -40,7 +40,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Checkov
-        run: python -m pip install checkov
+        run: python -m pip install "checkov==3.3.29"
 
       - name: Checkov Security Scan
         run: checkov -d . --framework terraform --baseline .checkov.baseline --output-baseline-as-skipped

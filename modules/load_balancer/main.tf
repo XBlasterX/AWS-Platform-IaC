@@ -23,7 +23,7 @@ resource "aws_lb" "public" {
   ip_address_type            = "ipv4"
   internal                   = false
   security_groups            = [var.alb_security_group_id]
-  
+
 }
 
 resource "aws_lb_listener" "http" {

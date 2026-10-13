@@ -37,9 +37,12 @@ data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "ssm_operator" {
   statement {
-    sid       = "StartSessionProjectInstances"
-    effect    = "Allow"
-    actions   = ["ssm:StartSession"]
+    sid    = "StartSessionProjectInstances"
+    effect = "Allow"
+    actions = [
+      "ssm:StartSession",
+      "GetConnectionStatus"
+    ]
     resources = ["arn:aws:ec2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:instance/*"]
 
     condition {
@@ -85,7 +88,6 @@ data "aws_iam_policy_document" "ssm_operator" {
       "ec2:DescribeInstances",
       "ssm:DescribeInstanceInformation",
       "ssm:DescribeSessions",
-      "ssm:GetConnectionStatus"
     ]
 
     resources = ["*"]

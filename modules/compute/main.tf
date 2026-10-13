@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "app" {
   }
   tag {
     key                 = "Environment"
-    value               = "production"
+    value               = "lab"
     propagate_at_launch = true
   }
   tag {

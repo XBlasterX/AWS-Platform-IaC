@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "terraform_state" {
     "Name" = "${var.project_name}-terraform-state-${var.environment}"
   }
   region = var.aws_region
-  
+
 }
 
 resource "aws_s3_bucket_public_access_block" "terraform_state" {

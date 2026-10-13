@@ -12,3 +12,13 @@ variable "ec2_security_group_ids" {
   type        = string
   description = "List of security group IDs for EC2 instances"
 }
+
+variable "target_group_arns" {
+  type        = list(string)
+  description = "List of target group ARNs for ALB"
+}
+
+variable "private_subnet_ids" {
+  type        = list(string)
+  description = "List of private subnet IDs for EC2 instances"
+}

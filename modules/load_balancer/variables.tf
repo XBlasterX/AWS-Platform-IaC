@@ -2,11 +2,16 @@ variable "vpc_id" {
   type        = string
   description = "vpc_id"
 }
-variable "subnet_ids" {
+variable "public_subnet_ids" {
   type        = list(string)
   description = "subnet_ids"
 }
 variable "alb_security_group_id" {
   type        = string
   description = "alb security"
+}
+
+variable "target_group_arns" {
+  type        = string
+  description = "target group arn"
 }

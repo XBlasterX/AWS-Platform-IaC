@@ -1,6 +1,6 @@
-output "target_group_arn" {
+output "target_group_arns" {
   value       = aws_lb_target_group.app.arn
-  description = "target group arn"
+  description = "target group arns"
 }
 
 output "dns_loadbalancer" {

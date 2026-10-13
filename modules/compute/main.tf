@@ -22,3 +22,35 @@ resource "aws_launch_template" "app" {
     }
   }
 }
+
+resource "aws_autoscaling_group" "app" {
+
+  desired_capacity          = 2
+  min_size                  = 2
+  max_size                  = 3
+  health_check_type         = "ELB"
+  health_check_grace_period = 300
+  target_group_arns         = var.target_group_arns
+  vpc_zone_identifier       = var.private_subnet_ids
+  launch_template {
+    id      = aws_launch_template.app.id
+    version = aws_launch_template.app.latest_version
+  }
+  tag {
+    key                 = "Name"
+    value               = "production-platform-app"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_autoscaling_policy" "cpu_target_tracking" {
+  name                   = "cpu_target_tracking"
+  autoscaling_group_name = aws_autoscaling_group.app.name
+  policy_type            = "TargetTrackingScaling"
+  target_tracking_configuration {
+    target_value = 60
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+  }
+}

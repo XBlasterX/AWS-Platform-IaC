@@ -17,15 +17,16 @@ resource "aws_lb_target_group" "app" {
 resource "aws_lb" "public" {
   name                       = "production-platform-alb"
   load_balancer_type         = "application"
-  subnets                    = var.subnet_ids
+  subnets                    = var.public_subnet_ids
   enable_deletion_protection = false
   ip_address_type            = "ipv4"
+  internal                   = false
   security_groups            = [var.alb_security_group_id]
 }
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.public.arn
-  port              = "80"
+  port              = 80
   protocol          = "HTTP"
   default_action {
     type             = "forward"

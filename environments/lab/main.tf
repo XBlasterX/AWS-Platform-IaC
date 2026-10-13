@@ -22,12 +22,15 @@ module "compute" {
   instance_type             = "t3.micro"
   ec2_instance_profile_name = module.iam.ec2_instance_profile_name
   ec2_security_group_ids    = module.security.ec2_security_group_ids
-
+  target_group_arns         = [module.load_balancer.target_group_arns]
+  depends_on                = [module.load_balancer]
+  private_subnet_ids        = module.network.private_subnet_ids
 }
 
 module "load_balancer" {
   source                = "../../modules/load_balancer"
   vpc_id                = module.network.vpc_id
-  subnet_ids            = module.network.public_subnet_ids
+  public_subnet_ids     = module.network.public_subnet_ids
   alb_security_group_id = module.security.alb_security_group_id
+  target_group_arns     = module.load_balancer.target_group_arns
 }

@@ -32,12 +32,8 @@ resource "aws_iam_instance_profile" "ec2_ssm" {
     "Name" = "production-platform-ec2-ssm-instance-profile"
   }
 }
-data "aws_caller_identity" "current" {
-
-}
-data "aws_region" "current" {
-
-}
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "ssm_operator" {
   statement {
@@ -58,42 +54,42 @@ data "aws_iam_policy_document" "ssm_operator" {
     }
   }
   statement {
-  sid    = "AllowShellDocument"
-  effect = "Allow"
+    sid    = "AllowShellDocument"
+    effect = "Allow"
 
-  actions = ["ssm:StartSession"]
+    actions = ["ssm:StartSession"]
 
-  resources = [
-    "arn:aws:ssm:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:document/SSM-SessionManagerRunShell"
-  ]
+    resources = [
+      "arn:aws:ssm:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:document/SSM-SessionManagerRunShell"
+    ]
   }
   statement {
-  sid    = "ManageOwnSessions"
-  effect = "Allow"
+    sid    = "ManageOwnSessions"
+    effect = "Allow"
 
-  actions = [
-    "ssm:TerminateSession",
-    "ssm:ResumeSession",
-    "ssmmessages:OpenDataChannel"
-  ]
+    actions = [
+      "ssm:TerminateSession",
+      "ssm:ResumeSession",
+      "ssmmessages:OpenDataChannel"
+    ]
 
-  resources = [
-    "arn:aws:ssm:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:session/&{aws:userid}-*"
-  ]
+    resources = [
+      "arn:aws:ssm:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:session/&{aws:userid}-*"
+    ]
   }
   statement {
-  sid    = "DescribeInstancesAndSessions"
-  effect = "Allow"
+    sid    = "DescribeInstancesAndSessions"
+    effect = "Allow"
 
-  actions = [
-    "ec2:DescribeInstances",
-    "ssm:DescribeInstanceInformation",
-    "ssm:DescribeSessions",
-    "ssm:GetConnectionStatus"
-  ]
+    actions = [
+      "ec2:DescribeInstances",
+      "ssm:DescribeInstanceInformation",
+      "ssm:DescribeSessions",
+      "ssm:GetConnectionStatus"
+    ]
 
-  resources = ["*"]
-}
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "ssm_operator" {

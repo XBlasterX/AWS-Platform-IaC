@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "ssm_operator" {
     effect = "Allow"
     actions = [
       "ssm:StartSession",
-      "GetConnectionStatus"
+      "ssm:GetConnectionStatus"
     ]
     resources = ["arn:aws:ec2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:instance/*"]
 
